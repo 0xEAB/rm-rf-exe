@@ -1,15 +1,17 @@
 import rm.rf;
-import std.stdio : writeln;
+import std.algorithm;
+import std.file;
+import std.range;
+import std.stdio;
 
 int main(string[] args)
 {
     if (args.length < 2)
     {
-        writeln("Usage:\trm-rf.exe dir");
+        stderr.writeln("Usage:\trm-rf.exe [directory] [...]");
         return 1;
     }
 
-    foreach(string dir; args[1 .. $])
-        rmdirRecurseForce(dir);
+    args.drop(1).each!rmdirRecurseForce;
     return 0;
 }
